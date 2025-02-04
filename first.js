@@ -23,13 +23,33 @@ function gameFlash(btn){
     },300);
 }
 
+function userFlash(btn){
+    btn.classlist.add("userflash");
+    setTimeout(function(){
+        btn.classlist.remove("userflash");
+    },300);
+}
 function levelUp(){
     level++;
     h2.innerText=`Level ${level}`;
-    let rndmIdx=Math.floor(Math.random()*3);
-    let rndclr=btn[rndmIdx];
+    let rndIdx=Math.floor(Math.random()*3);
+    let rndclr=btn[rndIdx];
     let rndBtn=document.querySelector(`#${rndclr}`);
     gameSeq.push(rndclr);
     console.log(gameSeq);
     gameFlash(rndBtn);
 }
+
+function pressBtn(){
+let btn=this;
+let btnClr = btn.getAttribute("id");
+userFlash();
+
+}
+
+let allBtns =document.querySelectorAll(".box");
+for(let btn of allBtns){
+    btn.addEventListener("click",pressBtn);
+
+}
+
