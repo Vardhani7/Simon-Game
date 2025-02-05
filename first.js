@@ -2,9 +2,8 @@ let gameSeq=[];
 let userSeq=[];
 let level=0;
 let started=false;
-let h2=document.querySelector("h2");
+let h2=document.querySelector("h2");     
 let btn=["red","yellow","green","blue"];
-
 
 
 
@@ -29,10 +28,11 @@ function userFlash(btn){
         btn.classlist.remove("userflash");
     },300);
 }
+
 function levelUp(){
     level++;
     h2.innerText=`Level ${level}`;
-    let rndIdx=Math.floor(Math.random()*3);
+    let rndIdx=Math.floor(Math.random()*4);
     let rndclr=btn[rndIdx];
     let rndBtn=document.querySelector(`#${rndclr}`);
     gameSeq.push(rndclr);
