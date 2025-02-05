@@ -16,20 +16,21 @@ startBtn.addEventListener("click",function(){
     }
 });
 function gameFlash(btn){
-    btn.classlist.add("flash");
+    btn.classList.add("flash");
     setTimeout(function(){
-        btn.classlist.remove("flash");
+        btn.classList.remove("flash");
     },300);
 }
 
 function userFlash(btn){
-    btn.classlist.add("userflash");
+    btn.classList.add("userflash");
     setTimeout(function(){
-        btn.classlist.remove("userflash");
+        btn.classList.remove("userflash");
     },300);
 }
 
 function levelUp(){
+    userSeq=[];
     level++;
     h2.innerText=`Level ${level}`;
     let rndIdx=Math.floor(Math.random()*4);
@@ -39,17 +40,34 @@ function levelUp(){
     console.log(gameSeq);
     gameFlash(rndBtn);
 }
-
+function check(idx){
+    if(userSeq[idx]==gameSeq[idx]){
+        if(userSeq.length==gameSeq.length){
+        setTimeout(levelUp,500);
+         }
+    }else{
+        h2.innerHTML=`GAME OVER Your score was <b> ${level} </b> <br> Click StartBtn for New game`;
+        reset();
+    }
+}
 function pressBtn(){
-let btn=this;
-let btnClr = btn.getAttribute("id");
-userFlash();
-
+    if(started==true){
+        let btn=this;
+    let btnClr = btn.getAttribute("id");
+    userFlash(btn);
+    userSeq.push(btnClr);
+    check(userSeq.length-1);
+    }
 }
 
 let allBtns =document.querySelectorAll(".box");
 for(let btn of allBtns){
     btn.addEventListener("click",pressBtn);
-
+}
+function reset(){
+    userSeq=[];
+    gameSeq=[];
+    level=0;
+    started = false;
 }
 
